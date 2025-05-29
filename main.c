@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 
     const char* input_file = argv[1];
     int mask_size = atoi(argv[2]);
-    int num_processos = atoi(argv[3]); // Ainda não usado, mas validado
+    int num_processos = atoi(argv[3]);
 
     if (mask_size < 3 || mask_size % 2 == 0) {
         fprintf(stderr, "Erro: tamanho da máscara deve ser um número ímpar ≥ 3.\n");
