@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <math.h>
 #include "filtros.h"
 
 int compare_uint8(const void* a, const void* b) {
@@ -45,14 +46,14 @@ uint8_t** median_filter(uint8_t** gray, int width, int height, int mask_size) {
 
 uint8_t** laplacian_filter(uint8_t** gray, int width, int height, int mask_size) {
     if (mask_size != 3) {
-        fprintf(stderr, "Por enquanto, apenas m·scara 3x3 È suportada para o Laplaciano.\n");
+        fprintf(stderr, "Por enquanto, apenas m√°scara 3x3 √© suportada para o Laplaciano.\n");
         return NULL;
     }
 
     int kernel[3][3] = {
-        { 0, -1,  0 },
-        {-1,  4, -1 },
-        { 0, -1,  0 }
+        { -1, -1, -1 },
+        { -1,  8, -1 },
+        { -1, -1, -1 }
     };
 
     uint8_t** result = malloc(height * sizeof(uint8_t*));
@@ -69,9 +70,9 @@ uint8_t** laplacian_filter(uint8_t** gray, int width, int height, int mask_size)
                 }
             }
 
-            if (sum < 0) sum = 0;
-            if (sum > 255) sum = 255;
-            result[i][j] = (uint8_t)sum;
+            int val = abs(sum);
+            if (val > 255) val = 255;
+            result[i][j] = (uint8_t)val;
         }
     }
 
